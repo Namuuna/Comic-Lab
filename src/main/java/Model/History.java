@@ -26,7 +26,7 @@ public class History {
     //private JBossObjectInputStream in;
     //private JBossObjectOutputStream out;
 
-    History(Canvas c) {
+    public History(Canvas c) {
         history = new Vector<byte[]>();
         addToHistory(c);
         historyIndex = 0;

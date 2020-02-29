@@ -3,6 +3,7 @@ package Controller;
 import Model.CanvasContainer;
 import Model.History;
 import Model.RootWindow;
+import comicApplet.Applet;
 
 import java.awt.Component;
 import java.awt.image.BufferedImage;
@@ -30,6 +31,6 @@ public class SystemState {
     public static boolean retainAspect = false;
     public static Vector<String> errors = new Vector<String>();
     protected static boolean paintMode = false;
-    protected static boolean isApplet = false;
+    public static boolean isApplet = false;
 }
 

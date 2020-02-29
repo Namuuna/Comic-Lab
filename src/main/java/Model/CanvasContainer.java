@@ -28,7 +28,7 @@ public class CanvasContainer extends JPanel {
     private Canvas canvas;
     private JScrollPane sp;
 
-    CanvasContainer() {
+    public CanvasContainer() {
         super();
         //setTitle("Canvas");
         canvas = new Canvas();

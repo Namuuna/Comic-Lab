@@ -24,7 +24,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 public class MenuBar extends JMenuBar implements ActionListener,ItemListener{
-    MenuBar() {
+    public MenuBar() {
         JMenu mFile = new JMenu("File");
         JMenuItem oNew = new JMenuItem("New");
 

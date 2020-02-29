@@ -20,10 +20,10 @@ import javax.swing.JLayeredPane;
 public class RootWindow extends JFrame {
     private DraggableIcon icon = null;
     private int iX = 0, iY = 0, canvasW = 0, canvasH = 0;
-    protected CanvasContainer canvas;
-    protected JDesktopPane desktop;
+    public CanvasContainer canvas;
+    public JDesktopPane desktop;
 
-    RootWindow() {
+    public RootWindow() {
         super();
         BorderLayout bl = new BorderLayout();
         setLayout(bl);

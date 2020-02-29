@@ -27,7 +27,7 @@ public class ToolBox extends InternalBox implements ChangeListener, ActionListen
     private JCheckBox bSwitchResize;
     private JToggleButton bPaintMode;
 
-    ToolBox() {
+    public ToolBox() {
         super();
         setIconifiable(true);
         setResizable(false);

@@ -32,7 +32,7 @@ public class DraggableIcon extends JLabel implements MouseMotionListener, MouseL
     protected int cX, cY = 0;
     private int mX = 0, mY = 0;
 
-    DraggableIcon(String file) {
+    public DraggableIcon(String file) {
         /**
          * DraggableIcon: take a filename as String, temporarily create an ImageIcon from this
          * file, convert into an image, so we can convert it back to an ImageIcon, but scaled down
