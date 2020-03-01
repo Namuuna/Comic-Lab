@@ -12,13 +12,7 @@ import java.awt.event.MouseMotionListener;
 import java.io.*;
 import java.util.Vector;
 
-import javax.swing.ImageIcon;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ScrollPaneLayout;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -31,8 +25,8 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
     public ImageBox() {
         super();
         setIconifiable(true);
-        setTitle("Props");
-
+        setMaximizable(true);
+        setTitle("PROPS");
         bl = new BorderLayout();
         fl = new FlowLayout();
         setLayout(bl);
@@ -42,13 +36,10 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
 
         Vector<String> cats = new Vector<String>();
         if(SystemState.isApplet == true) {
-            cats.add("arms");
-            cats.add("cartoon characters");
-            cats.add("faces");
-            cats.add("heads");
-            cats.add("legs");
-            cats.add("miscallaneous");
-            cats.add("torsos");
+            cats.add("Background");
+            cats.add("Cool People");
+            cats.add("Speech Bubbles");
+            cats.add("weird People");
         } else {
             File categories = new File("assets");
             for(File f : categories.listFiles()) {
@@ -62,9 +53,10 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
         sp = new JScrollPane(images);
         showCategory(cats.firstElement());
         JScrollPane sp2 = new JScrollPane(catList);
-        add(sp2,BorderLayout.WEST);
+        add(sp2,BorderLayout.EAST);
         add(sp,BorderLayout.CENTER);
         catList.addListSelectionListener(this);
+
     }
 
     /*

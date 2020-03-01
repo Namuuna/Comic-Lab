@@ -83,8 +83,9 @@ public class Run {
         images.setVisible(true);
         tools.setSize(440,270);
         canvas.setSize(desktop.getSize());
-        images.setSize(960,142);
-        tools.move(570, 440);
+        images.setSize(440,270);
+        images.move(570, 0);
+        tools.move(570, 270);
 
         //Then add desktop to root and make sure it takes
         //up as much space as it can (BorderLayout.CENTER)
