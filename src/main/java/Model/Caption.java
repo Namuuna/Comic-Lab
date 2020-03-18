@@ -25,12 +25,14 @@ public class Caption extends ProtoBubble {
     public void paint(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setColor(Color.WHITE);
+        g2.setBackground(new Color(0x0000000, true));
+        g2.setColor(new Color(0x0000000, true));
         g2.fillRect(0, 0, w, h);
-        g2.setColor(super.fgColor);
         g2.setStroke(new BasicStroke(3));
         g2.drawRect(1, 1, super.w-2, super.h-2);
         calculateFontSize(g2);
+        g2.setColor(Color.BLACK);
         g2.drawString(text, (w/2)-(tW/2), (h/2)+(tH/4));
+
     }
 }

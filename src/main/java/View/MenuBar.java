@@ -59,8 +59,12 @@ public class MenuBar extends JMenuBar implements ActionListener,ItemListener{
         oRedo.addActionListener(this);
 
         JMenu mHelp = new JMenu("Help");
-        JMenuItem oHate = new JMenuItem("Haters Gonna Hate");
-        mHelp.add(oHate);
+        JMenuItem about = new JMenuItem("About");
+        JMenuItem version = new JMenuItem("Version");
+        mHelp.add(about);
+        about.addActionListener(this);
+        mHelp.add(version);
+        version.addActionListener(this);
 
         add(mFile);
         add(mEdit);
@@ -153,6 +157,10 @@ public class MenuBar extends JMenuBar implements ActionListener,ItemListener{
                 e3.printStackTrace();
             }
             SystemState.unsaved = true;
+        } else if(action == "About") {
+            JOptionPane.showMessageDialog(getParent(), "With Comic lab you will be able to create comic strips fast and efficiently. \n You can select different types of backgrounds or change its color, and add avatars, \nas well as speech bubbles to narrate the story.");
+        } else if(action == "Version") {
+            JOptionPane.showMessageDialog(getParent(), "Version: 1.1");
         }
     }
 }

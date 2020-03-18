@@ -7,13 +7,7 @@ import View.ImageBox;
 import View.MenuBar;
 import comicApplet.Applet;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
@@ -23,17 +17,13 @@ import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
 import java.lang.reflect.InvocationTargetException;
 
-import javax.swing.JComponent;
-import javax.swing.JDesktopPane;
-import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.*;
 
 public class Run {
     private CanvasContainer canvas;
     private JDesktopPane desktop;
     private RootWindow root;
+    private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
     Run() {
         try {
@@ -61,6 +51,7 @@ public class Run {
 
         ImageBox images = new ImageBox();
         ToolBox tools = new ToolBox();
+
         desktop = new JDesktopPane();
         desktop.setBackground(new Color(153,217,234));
         History history = new History(canvas.getCanvas());
@@ -83,6 +74,7 @@ public class Run {
         images.setVisible(true);
         tools.setSize(440,270);
         canvas.setSize(desktop.getSize());
+//        canvas.setSize(824, 568);
         images.setSize(440,270);
         images.move(570, 0);
         tools.move(570, 270);
@@ -91,14 +83,15 @@ public class Run {
         //up as much space as it can (BorderLayout.CENTER)
         root.add(desktop,BorderLayout.CENTER);
 
+        Dimension dimension = toolkit.getScreenSize();
+
         root.setTitle("Comic Lab");
         root.setVisible(true);
-        root.setSize(new Dimension(1024,768));
+        root.setSize(new Dimension(1024, 768)); //1024, 768
         root.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Link the parts of system together - they listen
         //and react to events through custom observer-observable
-        //static class (SystemState)
         SystemState.rootPane = root;
         SystemState.glassPane = root.getGlassPane();
         SystemState.history = history;

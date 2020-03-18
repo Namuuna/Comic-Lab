@@ -8,19 +8,15 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.io.*;
 import java.util.Objects;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JColorChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-import javax.swing.SwingConstants;
+import javax.swing.*;
 import javax.swing.colorchooser.AbstractColorChooserPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 
 public class ToolBox extends InternalBox implements ChangeListener, ActionListener {
     private JColorChooser colours;
@@ -41,16 +37,18 @@ public class ToolBox extends InternalBox implements ChangeListener, ActionListen
         bC.setLayout(fl);
         JButton bAddFrame = new JButton("Frame");
         bC.add(bAddFrame); bAddFrame.addActionListener(this);
-        JButton bAddBubble = new JButton("Speech Bubble");
-        bC.add(bAddBubble); bAddBubble.addActionListener(this);
-        JButton bAddThought = new JButton("Thought Bubble");
-        bC.add(bAddThought); bAddThought.addActionListener(this);
+//        JButton bAddBubble = new JButton("Speech Bubble");
+//        bC.add(bAddBubble); bAddBubble.addActionListener(this);
+//        JButton bAddThought = new JButton("Thought Bubble");
+//        bC.add(bAddThought); bAddThought.addActionListener(this);
         JButton bAddCaption = new JButton("Caption");
         bC.add(bAddCaption); bAddCaption.addActionListener(this);
 
+        JButton buttonAdd = new JButton("Upload File");
+        bC.add(buttonAdd);
+        buttonAdd.addActionListener(this);
+
         cC.setLayout(fl);
-        bPaintMode = new JToggleButton("Paint Mode");
-        cC.add(bPaintMode); bPaintMode.addActionListener(this);
         bSwitchResize = new JCheckBox("Keep aspect ratio");
         cC.add(bSwitchResize); bSwitchResize.addActionListener(this);
 
@@ -79,10 +77,42 @@ public class ToolBox extends InternalBox implements ChangeListener, ActionListen
     @Override
     public void actionPerformed(ActionEvent e) {
         if(Objects.equals(e.getActionCommand(), "Frame")) SystemState.canvasPointer.getCanvas().addToCanvas(new ComicFrame(100,100), -1, -1);
-        if(Objects.equals(e.getActionCommand(), "Speech Bubble")) SystemState.canvasPointer.getCanvas().addToCanvas(new SpeechBubble("Text"), -1, -1);
-        if(Objects.equals(e.getActionCommand(), "Thought Bubble")) SystemState.canvasPointer.getCanvas().addToCanvas(new ThoughtBubble("Text"), -1, -1);
         if(Objects.equals(e.getActionCommand(), "Caption")) SystemState.canvasPointer.getCanvas().addToCanvas(new Caption("Text"), -1, -1);
         if(e.getSource() == bSwitchResize) SystemState.retainAspect = bSwitchResize.isSelected();
         if(e.getSource() == bPaintMode) SystemState.paintMode = bPaintMode.isSelected();
+        if(e.getActionCommand() == "Upload File"){
+            JFileChooser fc = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images","jpg", "gif");
+            fc.addChoosableFileFilter(filter);
+            int result = fc.showSaveDialog(null);
+            if(result == JFileChooser.APPROVE_OPTION) {
+                File selected = fc.getSelectedFile();
+                String fileName = selected.getName();
+                JOptionPane.showMessageDialog(getParent(), fileName);
+                try {
+                    saveFile(selected, fileName);
+                } catch(IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public void saveFile(File source, String fileName) throws IOException{
+        File destination = new File("assets/Uploaded Files/" + fileName);
+        InputStream is = null;
+        OutputStream os = null;
+        try {
+            is = new FileInputStream(source);
+            os = new FileOutputStream(destination);
+
+            byte[] buf = new byte[1024];
+            int bytes;
+            while((bytes = is.read(buf)) > 0) {
+                os.write(buf, 0, bytes);
+            }
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
     }
 }

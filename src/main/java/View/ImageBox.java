@@ -5,11 +5,13 @@ import Controller.InternalBox;
 import Controller.SystemState;
 import Model.DraggableIcon;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.*;
+import java.util.Objects;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -40,6 +42,7 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
             cats.add("Cool People");
             cats.add("Speech Bubbles");
             cats.add("weird People");
+            cats.add("Uploaded Files");
         } else {
             File categories = new File("assets");
             for(File f : categories.listFiles()) {

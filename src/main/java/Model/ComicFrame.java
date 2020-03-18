@@ -10,7 +10,7 @@ public class ComicFrame extends CanvasIcon {
     public ComicFrame(int w, int h) {
         super();
         this.w = w; this.h = h;
-        this.dW = w; this.dH = h; //set defaultWidth and defaultHeight for aspect ratio resizing.
+        this.dW = w; this.dH = h;
     }
 
     public void paint(Graphics g) {
