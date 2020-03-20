@@ -11,6 +11,7 @@ import View.MenuBar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.IOException;
 
 import javax.swing.JApplet;
 import javax.swing.JDesktopPane;
@@ -24,7 +25,7 @@ public class Applet extends JApplet {
     private JPanel root;
     private int canvasW = 0, canvasH = 0;
 
-    public void createGUI() {
+    public void createGUI() throws IOException {
         root = new JPanel();
         MenuBar menu = new MenuBar();
 
@@ -83,7 +84,11 @@ public class Applet extends JApplet {
         try {
             SwingUtilities.invokeAndWait(new Runnable() {
                 public void run() {
-                    createGUI();
+                    try {
+                        createGUI();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         } catch (Exception e) {

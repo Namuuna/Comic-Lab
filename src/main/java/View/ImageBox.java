@@ -4,6 +4,8 @@ package View;
 import Controller.InternalBox;
 import Controller.SystemState;
 import Model.DraggableIcon;
+import java.util.ListIterator;
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,8 +13,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.io.*;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -24,7 +28,7 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
     private JComponent images;
     private JScrollPane sp;
 
-    public ImageBox() {
+    public ImageBox() throws IOException {
         super();
         setIconifiable(true);
         setMaximizable(true);
@@ -37,28 +41,47 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
         images.setLayout(fl);
 
         Vector<String> cats = new Vector<String>();
-        if(SystemState.isApplet == true) {
+        if(SystemState.isApplet) {
             cats.add("Background");
             cats.add("Cool People");
             cats.add("Speech Bubbles");
-            cats.add("weird People");
+            cats.add("Weird People");
             cats.add("Uploaded Files");
         } else {
-            File categories = new File("assets");
-            for(File f : categories.listFiles()) {
-                if(f.isDirectory()) {
-                    cats.add(f.getName());
+            File currentDir = new File("");
+            String basePath = currentDir.getAbsolutePath();
+            System.out.println(basePath);
+            String path = basePath + "/assets";
+            System.out.println(path);
+            File categories = new File(path);
+            File[] files = categories.listFiles();
+            if (files != null) {
+                for(File f : files) {
+                    if(f.isDirectory()) {
+                        cats.add(f.getName());
+                    }
                 }
             }
+
+//            for(File f : files) {
+//                if(f.isDirectory()) {
+//                    cats.add(f.getName());
+//                }
+//            }
+
+
         }
 
         JList catList = new JList(cats);
         sp = new JScrollPane(images);
-        showCategory(cats.firstElement());
-        JScrollPane sp2 = new JScrollPane(catList);
-        add(sp2,BorderLayout.EAST);
-        add(sp,BorderLayout.CENTER);
-        catList.addListSelectionListener(this);
+        ListIterator iter = cats.listIterator();
+        if (iter.hasNext()) {
+            showCategory(cats.firstElement());
+            JScrollPane sp2 = new JScrollPane(catList);
+            add(sp2,BorderLayout.EAST);
+            add(sp,BorderLayout.CENTER);
+            catList.addListSelectionListener(this);
+        }
 
     }
 
@@ -68,7 +91,7 @@ public class ImageBox extends InternalBox implements ListSelectionListener {
     public void showCategory(String category) {
         images.removeAll();
         File directory = new File("assets/"+category);
-        for(File f : directory.listFiles()) {
+        for(File f : Objects.requireNonNull(directory.listFiles())) {
             images.add(new DraggableIcon("assets/"+category+"/"+f.getName()));
         }
         sp.revalidate();

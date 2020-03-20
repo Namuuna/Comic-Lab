@@ -15,6 +15,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.*;
@@ -25,7 +26,7 @@ public class Run {
     private RootWindow root;
     private Toolkit toolkit = Toolkit.getDefaultToolkit();
 
-    Run() {
+    Run() throws IOException {
         try {
             UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (ClassNotFoundException e) {
@@ -98,8 +99,8 @@ public class Run {
 
     }
 
-    public static void main(String[] args) {
-        Run myApp = new Run();
+    public static void main(String[] args) throws IOException {
+        new Run();
     }
 
 }
